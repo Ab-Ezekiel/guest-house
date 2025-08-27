@@ -1,1 +1,16 @@
+# Environment variables
+.env
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+
+# Virtual environment (if inside project)
 .venv/
+
+# SQLite database
+db.sqlite3
+
+# Django static and media files (if generated locally)
+staticfiles/
+media/
