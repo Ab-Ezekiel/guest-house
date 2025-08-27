@@ -54,7 +54,8 @@ class Booking(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    occupants = models.PositiveIntegerField(default=1, help_text="Number of people lodging")
+    
     class Meta:
         ordering = ["-created_at"]
         
@@ -70,6 +71,14 @@ class Booking(models.Model):
         if self.check_in < timezone.now().date():
             raise ValidationError("Check-in date cannot be in the past.")
 
+        # Occupants must be at least 1 
+        if self.occupants < 1:
+            raise ValidationError("There must be at least one occupant.")
+        
+        # Occupants must not exceed room capacity
+        if self.occupants > self.room.capacity:
+            raise ValidationError(f"Number of occupants ({self.occupants}) exceeds room capacity of ({self.room.capacity}).")
+    
         # Ensure room is available (basic logic)
         overlapping = Booking.objects.filter(
             room=self.room,

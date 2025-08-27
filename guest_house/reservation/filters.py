@@ -11,3 +11,4 @@ class RoomFilter(filters.FilterSet):
     class Meta:
         model = Room
         fields = ["type", "is_available", "min_price", "max_price"]
+

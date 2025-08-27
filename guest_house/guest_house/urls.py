@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('api/reservations/', include(('reservation.urls', 'reservation'), namespace='reservation')),
+    path("api/payments/", include("payments.urls", namespace="payments")),
 ]
+
